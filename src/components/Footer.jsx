@@ -35,18 +35,21 @@ function Footer() {
               href="https://LinkedIn.com/"
               aria-label="LinkedIn"
               icon={<FaLinkedin />}
+              className = "hover-rise"
             />
             <IconButton
               as="a"
               href="https://github.com/JustinScitech/ReadRight"
               aria-label="GitHub"
               icon={<FaGithub />}
+              className = "hover-rise"
             />
             <IconButton
               as="a"
               href="https://twitter.com/home"
               aria-label="Twitter"
               icon={<FaTwitter />}
+              className = "hover-rise"
             />
           </ButtonGroup>
         </Stack>

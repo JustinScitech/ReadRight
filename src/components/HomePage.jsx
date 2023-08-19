@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {useSpring, animated} from 'react-spring';
+import {Link} from "react-router-dom";
 import {
   Button,
   Box,
@@ -7,7 +8,6 @@ import {
   Text,
   VStack,
   HStack,
-  Link,
   Image,
   Flex,
   useBreakpointValue,
@@ -55,21 +55,6 @@ function HomePage() {
   const flexDirection = useBreakpointValue({ base: "column", md: "row" });
   return (
     <VStack spacing={8} p={8} textAlign="center">
-      <Flex
-        w="100%"
-        justifyContent="start"
-        alignItems="center"
-        bg="white"
-        p={4}
-        zIndex={1}
-        position="sticky"
-        top="0"
-        boxShadow="sm"
-      >
-        <Heading as="h1" size="2xl" color={"blue.500"} className="shine-text">
-          ReadRight
-        </Heading>
-      </Flex>
 
       <Flex w="80%" flexDirection={flexDirection} justifyContent="space-between" alignItems="center">
         <Image
@@ -85,6 +70,8 @@ function HomePage() {
             dyslexia!
           </Heading>
           <VStack spacing={4}>
+
+            <Link to="/register">
             <Button
               className="hover-rise"
               colorScheme="blue"
@@ -93,6 +80,8 @@ function HomePage() {
             >
               Get Started
             </Button>
+            </Link>
+            <Link to="/login">
             <Button
               className="hover-rise"
               variant="outline"
@@ -101,6 +90,7 @@ function HomePage() {
             >
               I have an account!
             </Button>
+            </Link>
           </VStack>
         </VStack>
       </Flex>
