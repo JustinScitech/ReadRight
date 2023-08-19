@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import { Box, Button, FormControl, FormLabel, Input, VStack, Heading, Text, Link} from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, VStack, Heading, Text, Link, AlertDialog,
+    AlertDialogBody,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogOverlay,
+    AlertDialogContent,} from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate} from "react-router-dom";
 import {auth} from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -8,6 +13,8 @@ function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [isMsgOpen, setMsgOpen] = useState(false);
 
 const handleSignup = async (e) => {
     e.preventDefault();
@@ -15,7 +22,11 @@ const handleSignup = async (e) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     
     navigate('/lesson');
+    setMessage("Successfully signed up!");
+      setMsgOpen(true);
   } catch (error) {
+    setMessage(`Sign up error: ${error}`);
+      setMsgOpen(true);
     console.error('Signup error:', error);
     // Handle signup error
   }
@@ -49,6 +60,21 @@ const handleSignup = async (e) => {
                 Already have an account?{" "}
                 <Link as={RouterLink} to="/login" color="blue.500">Log in</Link>
             </Text>
+            <AlertDialog isOpen={isMsgOpen} onClose={() => setMsgOpen(false)}>
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+                ERROR
+            </AlertDialogHeader>
+            <AlertDialogBody>{message}</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button onClick={() => setMsgOpen(false)} ml={3}>
+                Close
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
         </VStack>
     );
 }
