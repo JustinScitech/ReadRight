@@ -48,20 +48,20 @@ function AnimatedBox({ children, initialVisible = false }) {
 
 function HomePage() {
 //Just add these for compatibility with screens ig
-    const buttonSize = useBreakpointValue({ base: "md", md: "lg" });
+  const buttonSize = useBreakpointValue({ base: "md", md: "lg" });
   const imageWidth = useBreakpointValue({ base: "80%", md: "400px" });
   const imageHeight = useBreakpointValue({ base: "80%", md: "400px" });
-  const boxWidth = useBreakpointValue({ base: "90%", md: "50%" });
+  const boxWidth = useBreakpointValue({ base: "90%", md: "60%" });
   const flexDirection = useBreakpointValue({ base: "column", md: "row" });
   return (
-    <VStack spacing={8} p={8} textAlign="center">
+    <VStack spacing={6} p={8} textAlign="center">
 
       <Flex w="80%" flexDirection={flexDirection} justifyContent="space-between" alignItems="center">
         <Image
           src="https://cdn.dribbble.com/users/2367833/screenshots/7816190/media/b1aaf5c98510012b56422d1619dc62e8.gif"
           alt="Books Image"
           borderRadius="full"
-          wdith={imageWidth}
+          width={imageWidth}
           height={imageHeight}
         />
         <VStack spacing={2} textAlign="center">
@@ -112,6 +112,7 @@ function HomePage() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
+            mb ={6}
           >
             <VStack spacing={7} align="start" maxWidth="50%">
               <Heading as="h2" size="lg" align="start">
@@ -144,6 +145,7 @@ function HomePage() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
+             mb ={6}
           >
             <Image
               src="https://i.pinimg.com/originals/9a/e0/aa/9ae0aa2ff25aa43147538ac2a9f3137f.gif"
@@ -174,6 +176,7 @@ function HomePage() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
+             mb ={6}
           >
             <VStack spacing={2} align="start" maxWidth="50%">
               <Heading as="h2" size="lg">
@@ -203,6 +206,7 @@ function HomePage() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
+             mb ={6}
           >
             <Image
               src="https://cdn.dribbble.com/users/77598/screenshots/16399264/media/d86ceb1ad552398787fb76f343080aa6.gif"
@@ -212,7 +216,7 @@ function HomePage() {
               borderRadius="full"
               mr={6}
             />
-            <VStack spacing={2} align="end" maxWidth="50%">
+            <VStack spacing={4} align="end" maxWidth="70%">
               <Heading as="h2" size="lg" align="end">
                 Tailored to You
               </Heading>
