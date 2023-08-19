@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import HomePage from "./components/HomePage";
-import SignupPage from "./components/SignupPage";
-import LoginPage from "./components/LoginPage";
+import HomePage from "./pages/HomePage";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 import Footer from "./components/Footer";
 import StickyNavbar from './components/StickyNavbar';
-import Lesson from './components/Lesson';
-import Results from './components/Results';
+import Lesson from './pages/Lesson';
+import Results from './pages/Results';
 import './App.css';
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
