@@ -25,15 +25,15 @@ const storage = multer.diskStorage({
   },
 });
 
-const getAudioDurationInSeconds = (audioFilePath) => {
-  return new Promise((resolve, reject) => {
-    ffmpeg.ffprobe(audioFilePath, (err, metadata) => {
-      if (err) reject(err);
-      else resolve(metadata.format.duration);
-    });
-  });
-};
-
+// const getAudioDurationInSeconds = (audioFilePath) => {
+//   return new Promise((resolve, reject) => {
+//     ffmpeg.ffprobe(audioFilePath, (err, metadata) => {
+//       if (err) reject(err);
+//       else resolve(metadata.format.duration);
+//     });
+//   });
+// };
+const getAudioDurationInSeconds = 3;
 const upload = multer({ storage: storage });
 app.use(cors());
 app.use(express.static("public"));
@@ -56,42 +56,42 @@ const serviceAccountInfo = {
   universe_domain: "googleapis.com",
 };
 function cleanString(str) {
-    return str.replace(/[.,!?;()\-]/g, ''); 
+  return str.replace(/[.,!?;()\-]/g, "");
 }
 
 function longestCommonSubsequence(tokens1, tokens2) {
-    const m = tokens1.length;
-    const n = tokens2.length;
-    const L = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+  const m = tokens1.length;
+  const n = tokens2.length;
+  const L = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
 
-    for (let i = 1; i <= m; i++) {
-        for (let j = 1; j <= n; j++) {
-            if (tokens1[i - 1] === tokens2[j - 1]) {
-                L[i][j] = L[i - 1][j - 1] + 1;
-            } else {
-                L[i][j] = Math.max(L[i - 1][j], L[i][j - 1]);
-            }
-        }
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (tokens1[i - 1] === tokens2[j - 1]) {
+        L[i][j] = L[i - 1][j - 1] + 1;
+      } else {
+        L[i][j] = Math.max(L[i - 1][j], L[i][j - 1]);
+      }
     }
-    return L[m][n];
+  }
+  return L[m][n];
 }
 
 function getTokenSimilarity(s1, s2) {
-    s1 = cleanString(s1.toLowerCase());
-    s2 = cleanString(s2.toLowerCase());
+  s1 = cleanString(s1.toLowerCase());
+  s2 = cleanString(s2.toLowerCase());
 
-    const tokens1 = s1.split(/\s+/);
-    const tokens2 = s2.split(/\s+/);
+  const tokens1 = s1.split(/\s+/);
+  const tokens2 = s2.split(/\s+/);
 
-    const lcsLength = longestCommonSubsequence(tokens1, tokens2);
-    const lcsSimilarity = lcsLength / tokens1.length;
+  const lcsLength = longestCommonSubsequence(tokens1, tokens2);
+  const lcsSimilarity = lcsLength / tokens1.length;
 
-    const set1 = new Set(tokens1);
-    const set2 = new Set(tokens2);
-    const intersectionSize = [...set1].filter(token => set2.has(token)).length;
-    const wordMatchSimilarity = intersectionSize / tokens1.length;
+  const set1 = new Set(tokens1);
+  const set2 = new Set(tokens2);
+  const intersectionSize = [...set1].filter((token) => set2.has(token)).length;
+  const wordMatchSimilarity = intersectionSize / tokens1.length;
 
-    return (lcsSimilarity + wordMatchSimilarity) / 2;
+  return (lcsSimilarity + wordMatchSimilarity) / 2;
 }
 
 const client = new SpeechClient({ credentials: serviceAccountInfo });
@@ -111,16 +111,16 @@ app.post("/upload", (req, res, next) => {
 
     const audioFilePath = path.join(__dirname, "../audio", req.file.filename);
 
-    let audioDuration;
-    try {
-      audioDuration = await getAudioDurationInSeconds(audioFilePath);
-    } catch (err) {
-        console.error("Error getting audio duration:", err.message);
-        console.error("Stack trace:", err.stack);
-        return res
-          .status(500)
-          .json({ message: "Error processing audio duration" });
-      }
+    let audioDuration = 3;
+    // try {
+    //   audioDuration = await getAudioDurationInSeconds(audioFilePath);
+    // } catch (err) {
+    //   console.error("Error getting audio duration:", err.message);
+    //   console.error("Stack trace:", err.stack);
+    //   return res
+    //     .status(500)
+    //     .json({ message: "Error processing audio duration" });
+    // }
 
     const audioData = await fs.promises.readFile(audioFilePath);
     const audio = { content: audioData };
@@ -133,9 +133,10 @@ app.post("/upload", (req, res, next) => {
 
     try {
       const [response] = await client.recognize({ config, audio });
-      const transcript = response.results?.[0]?.alternatives?.[0]?.transcript ?? "";
-const textPrompt = req.body.textPrompt ?? "";
-     console.log(`time: ${audioDuration}`);
+      const transcript =
+        response.results?.[0]?.alternatives?.[0]?.transcript ?? "";
+      const textPrompt = req.body.textPrompt ?? "";
+      console.log(`time: ${audioDuration}`);
       console.log("textPrompt:", textPrompt);
       console.log("transcript:", transcript);
       const similarity = getTokenSimilarity(textPrompt, transcript);

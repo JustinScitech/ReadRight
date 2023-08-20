@@ -40,7 +40,7 @@ function Lesson() {
 
   useEffect(() => {
     generate().then((response) => {
-      
+
       const text = response.generations[0].text.trim();
       setGeneratedText(text);
     });
@@ -59,7 +59,7 @@ function Lesson() {
       setRecording(false);
       return;
     }
-    
+
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       console.error('Browser API navigator.mediaDevices.getUserMedia not available');
       return;
@@ -78,27 +78,27 @@ function Lesson() {
           formData.append("audio", audioFile);
           formData.append("textPrompt", generatedText);
           try {
-              const response = await fetch("http://localhost:3001/upload", {
-                  method: "POST",
-                  body: formData,
-              });
-              if (!response.ok) {
-                  throw new Error("Failed to upload audio.");
-              }
-              const data = await response.json();
-              console.log(data.message);
+            const response = await fetch("http://localhost:3001/upload", {
+              method: "POST",
+              body: formData,
+            });
+            if (!response.ok) {
+              throw new Error("Failed to upload audio.");
+            }
+            const data = await response.json();
+            console.log(data.message);
           } catch (error) {
-              console.error("Upload error:", error);
+            console.error("Upload error:", error);
           }
-      };
-        
-        
+        };
+
+
         recorder.ondataavailable = (event) => {
           if (event.data.size > 0) {
             recorder.chunks.push(event.data);
           }
         };
-        
+
         recorder.chunks = [];
         recorder.start();
         setRecording(true);
@@ -130,19 +130,23 @@ function Lesson() {
           </Text>
         </Box>
 
-        
-        
-        <Button
-      w="200px"
-      h="100px"
-      bg={recording ? "red.100" : "green.100"}
-      className="hover-rise"
-      onClick={handleMicrophoneClick}
-    >
-      <FaMicrophone />
-    </Button>
 
-    <Link to="/results">
+
+        <Button
+          w="200px"
+          h="100px"
+          _hover={{
+            background: "red.100",
+            color: "black.100",
+          }}
+          bg={recording ? "red.100" : "green.100"}
+          className="hover-rise"
+          onClick={handleMicrophoneClick}
+        >
+          <FaMicrophone />
+        </Button>
+
+        <Link to="/results">
           <Button
             className="hover-rise"
             colorScheme="blue"
@@ -151,7 +155,7 @@ function Lesson() {
           >
             Submit
           </Button>
-            </Link>
+        </Link>
       </VStack>
     </Box>
   );
