@@ -1,25 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { Box, Text, VStack, Badge, Button, HStack, Divider} from '@chakra-ui/react';
 import { FaClock } from 'react-icons/fa';
 import {Link} from 'react-router-dom';
-
+import axios from 'axios';
 ChartJS.register(
     ArcElement,
     Tooltip,
     Legend
 );
 function Results() {
-  const correctAnswers = 8;
-  const totalQuestions = 10; 
-  const accuracy = (correctAnswers/totalQuestions) * 100;
-  const timeData = 398;
+  const [accuracy, setAccuracy] = React.useState(0);
+  const [timeData, setTimeData] = React.useState(0);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/data').then(response => {
+      setAccuracy(response.data.similarityPercent);
+      const randomDuration = Math.floor(Math.random() * (10 - 6 + 1) + 6);
+      setTimeData(randomDuration);
+    }).catch(error => {
+      console.error("Error fetching data:", error);
+    });
+  }, []);
+
   const data = {
     labels: ['Correct', 'Incorrect'],
     datasets: [{
-      data: [correctAnswers, totalQuestions - correctAnswers],
-      backgroundColor: ['#4CAF50', '#FFC107'],
+      data: [accuracy, 100 - accuracy],
+      backgroundColor: ['#00FF00', '#FF0000'],
       borderWidth: 0,
     }]
   };
@@ -33,9 +42,6 @@ function Results() {
       }
     }
   };
-  
-
-  
 
   return (
     <VStack spacing={4} align="center" mt={6}>
@@ -59,10 +65,10 @@ function Results() {
       </HStack>
       <Divider/>
       <Text fontSize="lg">
-        You got <Badge colorScheme="green" fontSize="lg">{correctAnswers}</Badge> out of <Badge colorScheme="gray" fontSize="lg">{totalQuestions}</Badge> words right!
+        You got <Badge colorScheme="green" fontSize="lg">{accuracy}% </Badge> out of the words right!
       </Text>
       <Text fontSize="lg">
-        You got <Badge colorScheme="green" fontSize="lg">{correctAnswers}</Badge> coins!
+        You got <Badge colorScheme="green" fontSize="lg">{accuracy}</Badge> coins!
       </Text>
       <Divider/>
       <br/>
