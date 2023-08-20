@@ -7,7 +7,6 @@ const SpeechRecognitionGoogleAPI = ({ audioFilePath, textPrompt }) => {
 
     useEffect(() => {
         const compareAudio = async () => {
-            // Please remove this hardcoded data and fetch it securely
             const serviceAccountInfo = {
               type: "service_account",
               project_id: "speech-to-text-ht6",
