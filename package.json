@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "axios": "^1.4.0",
     "chart.js": "^4.3.3",
     "firebase": "^10.2.0",
     "firebase-tools": "^12.4.8",
