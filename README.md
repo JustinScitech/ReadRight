@@ -1,4 +1,10 @@
-#Won Hack the 6ix 2023 and $300 in prize value.
+<h1 align = "center">
+Won Hack the 6ix 2023 and $300 in prize value!
+</h1>
+
+<p align = "center">
+<img width="400" alt="original" src="https://github.com/JustinScitech/ReadRight/assets/56651128/dc462091-d6fb-4735-af25-cac27cff4388">
+</p>
 
 ## Inspiration
 We wanted to tackle a problem that impacts a large demographic of people. After research, we learned that 1 in 10 people suffer from dyslexia and 5-20% of people suffer from dysgraphia. These neurological disorders go undiagnosed or misdiagnosed often leading to these individuals constantly struggling to read and write which is an integral part of your education. With such learning disabilities, learning a new language would be quite frustrating and filled with struggles. Thus, we decided to create an application like Duolingo that helps make the learning process easier and more catered toward individuals. 
