@@ -29,5 +29,8 @@ This was the first time for many of our members to be integrating AI into an app
 
 We are also proud of the fact that we are developing an application for individuals with learning disabilities as we strongly believe that everyone has the right to education and their abilities should not discourage them from trying to learn new things. 
 
-## What's next for ReadRight
-As of now, ReadRight has the basics of the English language for users to study and get prompts from but we hope to integrate more languages and expand into a more widely used application. Additionally, we hope to integrate more features such as voice-activated commands so that it is easier for the user to navigate the application itself. 
+## Setup
+
+- Open the project in Visual Studio Code
+- Open a new terminal and run npm install to install all the node packages
+- Run npm start and enjoy!
