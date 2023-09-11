@@ -31,6 +31,40 @@ We are also proud of the fact that we are developing an application for individu
 
 ## Setup
 
-- Open the project in Visual Studio Code
-- Open a new terminal and run npm install to install all the node packages
-- Run npm start and enjoy!
+**Define the GCP API Key in src/backend/server.js**
+
+`const serviceAccountInfo = {
+  //Add your details here. https://console.cloud.google.com/apis/credentials will give you free API acsess to use the service.
+};`
+
+**Define the GCP API Key in src/firebase.js**
+
+`const firebaseConfig = {
+  //Add your details here.
+};`
+
+**Clone the project**
+
+```bash
+  git clone https://github.com/JustinScitech/ReadRight.git
+```
+
+**Go to the project directory**
+
+```bash
+  cd ReadRight
+```
+
+**Install dependencies**
+
+```bash
+  npm install
+```
+
+**Start the server**
+
+```bash
+  npm run dev
+```
+
+## Start training your reading!
